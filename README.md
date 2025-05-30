@@ -52,16 +52,6 @@ This ensures that house prices increase with size and amenities, mimicking real-
 - **Target:** `price`
 - **Evaluation Metric:** R² score (printed during training)
 
-## Re-training the Model
-
-To retrain or experiment:
-1. Edit `train_model.py` to change feature weights, noise, or the number of samples.
-2. Run:
-   ```sh
-   python train_model.py
-   ```
-   This will update `model.pkl` with a newly trained model.
-
 ## Exploring the Model
 
 - **Feature Importance:**  
@@ -87,15 +77,7 @@ To retrain or experiment:
 - The model is trained on synthetic data, so its predictions are for demonstration only.
 - For real applications, train on real, representative house price data.
 
-## References
 
-- [Random Forest Regression — scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
-- [Pandas Documentation](https://pandas.pydata.org/)
-- [NumPy Documentation](https://numpy.org/)
-
----
-
-*Feel free to fork this project and experiment with the model!*
 
 
 ## How It Works
