@@ -13,6 +13,90 @@ A simple web application to predict house prices based on features like square f
 
 ![image](https://github.com/user-attachments/assets/2a123fc4-5c23-4c12-b107-29d992fdd339)
 
+# Model Exploration: House Price Predictor
+
+## Model Overview
+
+The house price prediction model is a **Random Forest Regressor** trained on synthetic data. It estimates house prices based on key features:
+- Square footage (`sqft`)
+- Number of bedrooms
+- Number of bathrooms
+- Number of floors
+- Number of halls
+
+The output is the **estimated price** of a house in Indian Rupees (₹), clamped between ₹1,00,000 and ₹30,00,000 for realistic results.
+
+## Data Generation
+
+Since real-world data was not available, we generated **synthetic data**. The price is calculated as a function of the features, with added random noise for realism:
+
+```python
+price = (
+    sqft * 400 +
+    bedrooms * 50000 +
+    bathrooms * 40000 +
+    floors * 25000 +
+    halls * 20000 +
+    np.random.randint(-50000, 50000, num)  # random noise
+)
+price = np.clip(price, 100000, 3000000)
+```
+
+This ensures that house prices increase with size and amenities, mimicking real-world trends.
+
+## Model Training
+
+- **Algorithm:** Random Forest Regressor (`sklearn.ensemble.RandomForestRegressor`)
+- **Training/Test Split:** 80% train, 20% test
+- **Features Used:** `sqft`, `bedrooms`, `bathrooms`, `floors`, `halls`
+- **Target:** `price`
+- **Evaluation Metric:** R² score (printed during training)
+
+## Re-training the Model
+
+To retrain or experiment:
+1. Edit `train_model.py` to change feature weights, noise, or the number of samples.
+2. Run:
+   ```sh
+   python train_model.py
+   ```
+   This will update `model.pkl` with a newly trained model.
+
+## Exploring the Model
+
+- **Feature Importance:**  
+  You can inspect which features are most important to the model:
+  ```python
+  import pickle
+  with open('model.pkl', 'rb') as f:
+      model = pickle.load(f)
+  print(model.feature_importances_)
+  ```
+
+- **Testing Predictions in Python:**
+  ```python
+  test_features = [[2000, 3, 2, 1, 1]]  # Example: 2000 sqft, 3 bedrooms, 2 bathrooms, 1 floor, 1 hall
+  print(model.predict(test_features))
+  ```
+
+- **Experimenting:**  
+  Adjust the weights in the price formula or the model parameters in `train_model.py` to see how predictions change.
+
+## Limitations
+
+- The model is trained on synthetic data, so its predictions are for demonstration only.
+- For real applications, train on real, representative house price data.
+
+## References
+
+- [Random Forest Regression — scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
+- [Pandas Documentation](https://pandas.pydata.org/)
+- [NumPy Documentation](https://numpy.org/)
+
+---
+
+*Feel free to fork this project and experiment with the model!*
+
 
 ## How It Works
 
